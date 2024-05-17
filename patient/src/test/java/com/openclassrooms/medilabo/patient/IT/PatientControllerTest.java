@@ -17,6 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -52,4 +56,76 @@ public class PatientControllerTest {
         verify(patientService, times(1)).getPatientById(patientId);
     }
 
+    @Test
+    public void test_getAllPatients() {
+
+        //GIVEN
+        List<Patient> expectedPatients = Arrays.asList(
+                new Patient(1, "Joker", "Clown", "01-01-2001", Genre.M, "Address", "0612345678"),
+                new Patient(2, "Harley", "Queen", "02-02-2002", Genre.F, "Address", "0912345678")
+        );
+        List<PatientDTO> expectedPatientsDTO = expectedPatients.stream()
+                .map(patient -> {
+                    PatientDTO patientDTO = new PatientDTO();
+                    BeanUtils.copyProperties(patient, patientDTO);
+                    return patientDTO;
+                }).toList();
+        when(patientService.getAllPatients()).thenReturn(expectedPatientsDTO);
+
+        //WHEN
+        ResponseEntity<List<PatientDTO>> response = patientController.getAllPatients();
+
+
+        //THEN
+        assertEquals(expectedPatientsDTO, response.getBody());
+        verify(patientService, times(1)).getAllPatients();
+    }
+
+    @Test
+    public void test_addPatient() throws ParseException {
+        //GIVEN
+        Patient addedPatient = new Patient(1, "Joker", "Clown", "01-01-2001", Genre.M, "Address", "0612345678");
+        PatientDTO addedPatientDTO = new PatientDTO();
+        BeanUtils.copyProperties(addedPatient, addedPatientDTO);
+
+        when(patientService.savePatient(addedPatientDTO)).thenReturn(addedPatient);
+
+        //WHEN
+        ResponseEntity<Patient> response = patientController.addPatient(addedPatientDTO);
+
+        //THEN
+        assertEquals(addedPatient, response.getBody());
+        verify(patientService, times(1)).savePatient(addedPatientDTO);
+    }
+
+    @Test
+    public void test_updatePatient() throws ParseException {
+        //GIVEN
+        int newId = 2;
+        Patient updatedPatient = new Patient(1, "Joker", "Clown", "01-01-2001", Genre.M, "Address", "0612345678");
+        updatedPatient.setId(2);
+        when(patientService.updatePatient(updatedPatient)).thenReturn(updatedPatient);
+
+        PatientDTO updatedPatientDTO = new PatientDTO();
+        BeanUtils.copyProperties(updatedPatient, updatedPatientDTO);
+
+        //WHEN
+        ResponseEntity<Patient> response = patientController.updatePatient(updatedPatientDTO,newId);
+
+        //THEN
+        assertEquals(updatedPatient, response.getBody());
+        verify(patientService, times(1)).updatePatient(updatedPatient);
+    }
+
+    @Test
+    public void test_deletePatient() {
+        //GIVEN
+        int patientId = 1;
+
+        //WHEN
+        patientController.deletePatient(patientId);
+
+        //THEN
+        verify(patientService, times(1)).deletePatient(patientId);
+    }
 }
