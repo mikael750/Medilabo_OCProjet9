@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatientBean {
 
-    private int id;
-    private String prenom;
-    private String nom;
-    private String dateNaissance;
-    private String genre;
-    private String adressePostale;
-    private String numeroTelephone;
+    public int id;
+    public String prenom;
+    public String nom;
+    public String dateNaissance;
+    public String genre;
+    public String adressePostale;
+    public String numeroTelephone;
 
     @Override
     public String toString()

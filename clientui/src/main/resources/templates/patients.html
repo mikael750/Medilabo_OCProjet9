@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>All patients</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:each="patient : ${patientsList}" class="col-md-4 my-1">
+    <div class="row">
+        <!--<a th:href="@{/patient/{id}(id=${patient.id})}">
+        </a>-->
+
+        <h2 th:text="${patient.prenom}"></h2>
+        <p th:text="${patient.nom}"></p>
+        <p th:text="${patient.genre}"></p>
+        <p th:text="${patient.dateNaissance}"></p>
+    </div>
+</div>
+</body>
+</html>
