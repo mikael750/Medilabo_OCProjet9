@@ -12,11 +12,12 @@
     <div class="row">
         <!--<a th:href="@{/patient/{id}(id=${patient.id})}">
         </a>-->
-
-        <h2 th:text="${patient.prenom}"></h2>
-        <p th:text="${patient.nom}"></p>
-        <p th:text="${patient.genre}"></p>
-        <p th:text="${patient.dateNaissance}"></p>
+        <a th:href="@{|/patient/${patient.id}|}" >
+            <h2 th:text="${patient.prenom}"></h2>
+            <p th:text="${patient.nom}"></p>
+            <p th:text="${patient.genre}"></p>
+            <p th:text="${patient.dateNaissance}"></p>
+        </a>
     </div>
 </div>
 </body>

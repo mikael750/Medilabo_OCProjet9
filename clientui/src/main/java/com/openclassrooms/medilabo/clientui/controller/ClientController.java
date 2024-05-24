@@ -31,7 +31,7 @@ public class ClientController {
      * @param model
      * @return
      */
-    @GetMapping("/patients")
+    @GetMapping("/patient")
     public String getAllPatients(Model model){
 
         ResponseEntity<List<PatientBean>> responseEntity = patientProxy.getAllPatients();
