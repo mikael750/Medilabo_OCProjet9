@@ -20,6 +20,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Security Configuration for login, default Url and logout
+     *
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -45,7 +52,12 @@ public class SecurityConfig {
     }
 
 
-
+    /**
+     * Homemade Password for Using the Application
+     *
+     * @param passwordEncoder
+     * @return
+     */
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
         UserDetails user = User.builder()

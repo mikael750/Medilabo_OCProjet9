@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Individual Patient</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Patient Detail</h1>
+    <div th:if="${patientFound != null}">
+        <div class="card">
+            <div class="card-header">
+                <h2 th:text="${patientFound.nom} + ' ' + ${patientFound.prenom}">Patient name</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Date of Birth: </strong> <span th:text="${patientFound.dateNaissance}"></span></p>
+                <p><strong>Gender: </strong> <span th:text="${patientFound.genre}"></span></p>
+                <p><strong>Address: </strong> <span th:text="${patientFound.adressePostale}"></span></p>
+                <p><strong>Phone Number: </strong> <span th:text="${patientFound.numeroTelephone}"></span></p>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/patient}" class="btn btn-primary">Return to Patient List</a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${patientFound == null}">
+        <p>Patient not found</p>
+    </div>
+</div>
+</body>
+</html>

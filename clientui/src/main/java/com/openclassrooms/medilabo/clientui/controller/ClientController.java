@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -40,6 +41,18 @@ public class ClientController {
         model.addAttribute("patientsList", patientsList);
 
         return "patients";
+
+    }
+
+    @GetMapping("/patient/{id}")
+    public String getPatientById(Model model, @PathVariable int id){
+
+        ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
+        PatientBean patientFound = responseEntity.getBody();
+
+        model.addAttribute("patientFound", patientFound);
+
+        return "patient";
 
     }
 
