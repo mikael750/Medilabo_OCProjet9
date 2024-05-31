@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.text.ParseException;
 import java.util.List;
 
 @FeignClient(name = "patient", url = "http://localhost:8081/")
@@ -20,4 +21,8 @@ public interface MicroservicePatientProxy {
 
     @PostMapping("/patient/add")
     ResponseEntity<PatientBean> addPatient(@RequestBody PatientBean patientDTO);
+
+    @PostMapping("/patient/{id}/update")
+    ResponseEntity<PatientBean> updatePatient(@RequestBody PatientBean patientDTO, @PathVariable("id") int id);
+
 }

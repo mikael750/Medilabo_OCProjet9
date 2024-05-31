@@ -18,14 +18,6 @@ public class ClientController {
         this.patientProxy = patientProxy;
     }
 
-    @RequestMapping("/")
-    public String accueil(Model model){
-        ResponseEntity<List<PatientBean>> responseEntity = patientProxy.getAllPatients();
-        List<PatientBean> patientsList = responseEntity.getBody();
-        model.addAttribute("patients", patientsList);
-        return "Accueil";
-    }
-
     /**
      * @param model
      * @return
@@ -65,9 +57,27 @@ public class ClientController {
     @PostMapping("/patient/add")
     public String addPatient(@ModelAttribute PatientBean patientDTO, Model model) {
 
-        ResponseEntity<PatientBean> responseEntity = patientProxy.addPatient(patientDTO);
-        PatientBean patientAdded = responseEntity.getBody();
+        patientProxy.addPatient(patientDTO);
 
         return "redirect:/patient";
     }
+
+    @GetMapping("/patient/{id}/update")
+    public String updateForm(Model model, @PathVariable int id) {
+        ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
+        PatientBean patientFound = responseEntity.getBody();
+
+        model.addAttribute("patientFound", patientFound);
+
+        return "updatePatient";
+    }
+
+    @PostMapping("/patient/{id}/update")
+    public String updatePatient(@ModelAttribute PatientBean patientDTO, @PathVariable("id") int id){
+
+        patientProxy.updatePatient(patientDTO, id);
+
+        return "redirect:/patient";
+    }
+
 }

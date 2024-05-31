@@ -25,6 +25,9 @@
                 <a th:href="@{/patient}" class="btn btn-primary">Return to Patient List</a>
             </div>
         </div>
+        <div class="container">
+            <a th:href="@{/patient/{id}/update(id=${patientFound.id})}" class="btn btn-primary">Update the Patient Info</a>
+        </div>
     </div>
     <div th:if="${patientFound == null}">
         <p>Patient not found</p>
