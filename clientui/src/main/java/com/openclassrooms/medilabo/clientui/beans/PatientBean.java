@@ -1,10 +1,14 @@
 package com.openclassrooms.medilabo.clientui.beans;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class PatientBean {
 
     public int id;
@@ -18,7 +22,7 @@ public class PatientBean {
     @Override
     public String toString()
     {
-        return "ProductBean{" +
+        return "PatientBean{" +
                 "id=" + id +
                 ", prenom='" + prenom + '\'' +
                 ", nom='" + nom + '\'' +

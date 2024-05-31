@@ -5,6 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface MicroservicePatientProxy {
     @GetMapping( value = "/patient/{id}")
     ResponseEntity<PatientBean> getPatientById(@PathVariable("id") int id);
 
+    @PostMapping("/patient/add")
+    ResponseEntity<PatientBean> addPatient(@RequestBody PatientBean patientDTO);
 }
