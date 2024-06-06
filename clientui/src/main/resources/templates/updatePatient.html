@@ -7,8 +7,8 @@
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
-    <h1>Update the Patient</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Update the Patient</h1>
 
     <form th:action="@{/patient/{id}/update(id=${patientFound.id})}" th:object="${patientFound}" method="post">
         <div class="form-group">
@@ -38,5 +38,10 @@
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
+
+<script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

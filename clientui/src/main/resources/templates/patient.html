@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
-    <h1>Patient Detail</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Patient Detail</h1>
     <div th:if="${patientFound != null}">
         <div class="card">
             <div class="card-header">
@@ -22,16 +22,21 @@
                 <p><strong>Phone Number: </strong> <span th:text="${patientFound.numeroTelephone}"></span></p>
             </div>
             <div class="card-footer">
-                <a th:href="@{/patient}" class="btn btn-primary">Return to Patient List</a>
+                <a th:href="@{/patient}" class="btn btn-primary mt-3">Return to Patient List</a>
             </div>
         </div>
         <div class="container">
-            <a th:href="@{/patient/{id}/update(id=${patientFound.id})}" class="btn btn-primary">Update the Patient Info</a>
+            <a th:href="@{/patient/{id}/update(id=${patientFound.id})}" class="btn btn-primary mt-3">Update the Patient Info</a>
         </div>
     </div>
     <div th:if="${patientFound == null}">
         <p>Patient not found</p>
     </div>
 </div>
+
+<script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

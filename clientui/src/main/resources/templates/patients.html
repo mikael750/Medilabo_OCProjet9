@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
+<div class="container mt-5">
+    <h1 class="mb-4">Patients List</h1>
+
     <div class="row">
     <div th:each="patient : ${patientsList}" class="col-md-4 my-1">
         <a th:href="@{|/patient/${patient.id}|}" >
@@ -19,9 +21,14 @@
         </a>
     </div>
 </div>
-<div class="container">
+<div class="container mt-5">
     <a href="patient/add">Add a Patient !</a>
 </div>
 </div>
+
+<script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
