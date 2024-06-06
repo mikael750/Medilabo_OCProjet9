@@ -19,6 +19,7 @@
         <module>clientui</module>
         <module>gateway</module>
         <module>patient</module>
+        <module>note</module>
     </modules>
 
 </project>
