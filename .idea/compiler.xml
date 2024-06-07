@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="note" />
         <module name="clientui" />
         <module name="gateway" />
         <module name="patient" />
@@ -17,6 +18,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="clientui" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="note" options="-parameters" />
       <module name="patient" options="-parameters" />
     </option>
   </component>
