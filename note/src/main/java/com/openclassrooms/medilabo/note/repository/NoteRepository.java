@@ -16,4 +16,7 @@ public interface NoteRepository extends MongoRepository<Note, String> {
 
     public List<Note> findByNote(String note);
 
+    @Query(value = "{'patId': ?0}", fields = "{patId:  1, patient:  1, note:  1}")
+    List<Note> findPatientAndNote(String patId);
+
 }
