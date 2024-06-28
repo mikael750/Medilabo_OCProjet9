@@ -15,9 +15,9 @@ public class Note {
 
     @Id
     private String id;
-    @Indexed(unique = true)
     private String patId;
     private String patient;
+    @Indexed(unique = true)
     private String note;
 
 }
