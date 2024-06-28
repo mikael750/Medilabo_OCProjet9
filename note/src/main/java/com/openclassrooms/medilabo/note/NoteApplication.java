@@ -44,7 +44,7 @@ public class NoteApplication implements CommandLineRunner {
 
 		List<Note> result = noteRepository.findPatientAndNote("1");
 		result.forEach((notes) -> logger.info(String.valueOf(notes)));*/
-
+/*
 		Note newP = new Note();
 		newP.setPatId("99");
 		newP.setPatient("TestNew");
@@ -64,6 +64,6 @@ public class NoteApplication implements CommandLineRunner {
 		noteRepository.save(newP2);
 
 		noteRepository.deleteById(newP.getId());
-
+*/
 	}
 }
