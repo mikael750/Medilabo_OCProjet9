@@ -1,7 +1,9 @@
 package com.openclassrooms.medilabo.clientui.controller;
 
+import com.openclassrooms.medilabo.clientui.beans.NoteBean;
 import com.openclassrooms.medilabo.clientui.beans.PatientBean;
 import com.openclassrooms.medilabo.clientui.proxies.MicroservicePatientProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,9 @@ import java.util.List;
 public class ClientController {
 
     private final MicroservicePatientProxy patientProxy;
+
+    @Autowired
+    private NoteController noteController;
 
     public ClientController(MicroservicePatientProxy patientProxy) {
         this.patientProxy = patientProxy;
@@ -39,7 +44,9 @@ public class ClientController {
 
         ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
         PatientBean patientFound = responseEntity.getBody();
+        List<NoteBean> notes = noteController.getAllNotes(model);
 
+        model.addAttribute("notes", notes);
         model.addAttribute("patientFound", patientFound);
 
         return "patient";

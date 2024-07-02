@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "note", url = "http://localhost:8081/")
+@FeignClient(name = "note", url = "http://localhost:8083/")
 public interface MicroserviceNoteProxy {
 
     @GetMapping("/note")

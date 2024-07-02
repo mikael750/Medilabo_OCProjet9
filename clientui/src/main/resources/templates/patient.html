@@ -20,7 +20,15 @@
                 <p><strong>Gender: </strong> <span th:text="${patientFound.genre}"></span></p>
                 <p><strong>Address: </strong> <span th:text="${patientFound.adressePostale}"></span></p>
                 <p><strong>Phone Number: </strong> <span th:text="${patientFound.numeroTelephone}"></span></p>
+                <h2 style="text-decoration: underline;">Notes :</h2>
+                <div th:each="note : ${notes}">
+                    <div>
+                        <p th:text="${note.note}"></p>
+                    </div>
+                </div>
             </div>
+
+            </br>
             <div class="card-footer">
                 <a th:href="@{/patient}" class="btn btn-primary mt-3">Return to Patient List</a>
             </div>

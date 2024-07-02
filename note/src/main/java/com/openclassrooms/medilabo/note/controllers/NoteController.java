@@ -33,7 +33,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Note>> getPatient(@PathVariable("id") int id) {
+    public ResponseEntity<List<Note>> getNote(@PathVariable("id") int id) {
 
         return new ResponseEntity<>(noteService.getNotesByPatient(id),HttpStatus.OK);
 
