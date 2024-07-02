@@ -20,4 +20,9 @@ public class Note {
     @Indexed(unique = true)
     private String note;
 
+    public Note(String patientId, String patientName, String notes) {
+        this.patId = patientId;
+        this.patient = patientName;
+        this.note = notes;
+    }
 }
