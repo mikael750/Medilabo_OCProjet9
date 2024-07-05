@@ -28,6 +28,13 @@ public class NoteController {
         return notes;
     }
 
+    public List<NoteBean> getNotes(Model model, int id) {
+        ResponseEntity<List<NoteBean>> response = noteProxy.getNote(id);
+        List<NoteBean> notes = response.getBody();
+        model.addAttribute("notes", notes);
+        return notes;
+    }
+
     @PostMapping("/note/add")
     public String addNote(@ModelAttribute NoteBean note, Model model) {
         ResponseEntity<NoteBean> response = noteProxy.addNote(note);

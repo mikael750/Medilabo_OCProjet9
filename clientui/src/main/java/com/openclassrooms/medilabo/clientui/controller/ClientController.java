@@ -44,7 +44,7 @@ public class ClientController {
 
         ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
         PatientBean patientFound = responseEntity.getBody();
-        List<NoteBean> notes = noteController.getAllNotes(model);
+        List<NoteBean> notes = noteController.getNotes(model,id);
 
         model.addAttribute("notes", notes);
         model.addAttribute("patientFound", patientFound);
