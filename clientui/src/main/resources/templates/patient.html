@@ -27,12 +27,14 @@
                     </div>
                 </div>
             </div>
-
+            </br>
+            <a th:href="@{/patient/{id}/addNote(id=${patientFound.id})}" class="btn btn-primary">Add or Update a Note</a>
             </br>
             <div class="card-footer">
                 <a th:href="@{/patient}" class="btn btn-primary mt-3">Return to Patient List</a>
             </div>
         </div>
+        </br>
         <div class="container">
             <a th:href="@{/patient/{id}/update(id=${patientFound.id})}" class="btn btn-primary mt-3">Update the Patient Info</a>
         </div>

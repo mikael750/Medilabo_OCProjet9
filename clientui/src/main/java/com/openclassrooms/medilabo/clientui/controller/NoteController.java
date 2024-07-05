@@ -47,7 +47,14 @@ public class NoteController {
         return "redirect:/patient";
     }
 
-    @PostMapping("/note/{id}/update")
+    @GetMapping("/patient/{id}/addNote")
+    public String showAddNoteForm(@PathVariable("id") int id, Model model) {
+        model.addAttribute("note", new NoteBean());
+        model.addAttribute("patientId", id);
+        return "addNote";
+    }
+
+    @PostMapping("/patient/{id}/addNote")
     public String updateNote(@PathVariable("id") int id, @ModelAttribute NoteBean note, Model model) {
         ResponseEntity<NoteBean> response = noteProxy.updateNote(note, id);
         if (response.getStatusCode().is2xxSuccessful()) {
