@@ -20,6 +20,7 @@
         <module>gateway</module>
         <module>patient</module>
         <module>note</module>
+        <module>risks</module>
     </modules>
 
 </project>
