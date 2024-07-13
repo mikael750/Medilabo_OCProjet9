@@ -12,7 +12,6 @@
     <h1 th:text="${#strings.isEmpty(note.id) ? 'Add a Note' : 'Update a Note'}"></h1>
     <form th:action="@{/patient/{id}/addNote(id=${patientId})}" th:object="${note}" method="post">
         <div class="form-group">
-            <label for="note">Contenu</label>
             <textarea id="note" th:field="*{note}" name="note" rows="10" cols="100" class="form-control" required></textarea><br>
         </div>
         </br>

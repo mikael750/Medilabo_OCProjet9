@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="note" />
         <module name="clientui" />
+        <module name="risks" />
         <module name="gateway" />
         <module name="patient" />
       </profile>
@@ -20,6 +21,7 @@
       <module name="gateway" options="-parameters" />
       <module name="note" options="-parameters" />
       <module name="patient" options="-parameters" />
+      <module name="risks" options="-parameters" />
     </option>
   </component>
 </project>
