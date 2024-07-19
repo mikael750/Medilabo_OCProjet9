@@ -1,5 +1,6 @@
 package com.openclassrooms.medilabo.risks.controller;
 
+import com.openclassrooms.medilabo.risks.services.RiskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class RiskController {
 
     @Autowired
-    // service;
+     RiskService service;
 
     @GetMapping("/riskReport/{id}")
     public String getReportRisk(@PathVariable("id") int id) {
-
-        return null;
+        return service.evaluateRiskForPatient(id);
     }
 
 }
