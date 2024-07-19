@@ -1,4 +1,4 @@
-package com.openclassrooms.projet9.risks;
+package com.openclassrooms.medilabo.risks;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.openclassrooms.projet9.risks;
+package com.openclassrooms.medilabo.risks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
