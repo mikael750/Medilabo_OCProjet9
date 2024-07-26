@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RiskController {
 
     @Autowired
-     RiskService service;
+    private RiskService service;
 
-    @GetMapping("/riskReport/{id}")
+    @GetMapping("{id}")
     public String getReportRisk(@PathVariable("id") int id) {
         return service.evaluateRiskForPatient(id);
     }

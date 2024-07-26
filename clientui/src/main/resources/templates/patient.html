@@ -28,6 +28,11 @@
                 </div>
             </div>
             </br>
+            <div class="card-body">
+                <h2>Risk Report</h2>
+                <p th:utext="${riskReport}">Loading risk report...</p>
+            </div>
+            </br>
             <a th:href="@{/patient/{id}/addNote(id=${patientFound.id})}" class="btn btn-primary">Add or Update a Note</a>
             </br>
             <div class="card-footer">

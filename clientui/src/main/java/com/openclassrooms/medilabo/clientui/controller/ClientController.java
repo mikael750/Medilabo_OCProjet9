@@ -3,6 +3,7 @@ package com.openclassrooms.medilabo.clientui.controller;
 import com.openclassrooms.medilabo.clientui.beans.NoteBean;
 import com.openclassrooms.medilabo.clientui.beans.PatientBean;
 import com.openclassrooms.medilabo.clientui.proxies.MicroservicePatientProxy;
+import com.openclassrooms.medilabo.clientui.proxies.MicroserviceRiskProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,14 @@ public class ClientController {
 
     private final MicroservicePatientProxy patientProxy;
 
+    private final MicroserviceRiskProxy riskProxy;
+
     @Autowired
     private NoteController noteController;
 
-    public ClientController(MicroservicePatientProxy patientProxy) {
+    public ClientController(MicroservicePatientProxy patientProxy, MicroserviceRiskProxy riskProxy) {
         this.patientProxy = patientProxy;
+        this.riskProxy = riskProxy;
     }
 
     /**
@@ -45,9 +49,11 @@ public class ClientController {
         ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
         PatientBean patientFound = responseEntity.getBody();
         List<NoteBean> notes = noteController.getNotes(model,id);
+        String riskReport = riskProxy.getReportRisk(id);
 
         model.addAttribute("notes", notes);
         model.addAttribute("patientFound", patientFound);
+        model.addAttribute("riskReport", riskReport);
 
         return "patient";
 
