@@ -14,6 +14,10 @@ public class RiskController {
     @Autowired
     private RiskService service;
 
+    /**
+     * @param id id of patient
+     * @return
+     */
     @GetMapping("{id}")
     public String getReportRisk(@PathVariable("id") int id) {
         return service.evaluateRiskForPatient(id);

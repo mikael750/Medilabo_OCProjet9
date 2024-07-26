@@ -6,10 +6,13 @@ import com.openclassrooms.medilabo.risks.services.NoteServiceProxy;
 import com.openclassrooms.medilabo.risks.services.PatientServiceProxy;
 import com.openclassrooms.medilabo.risks.services.RiskService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +30,8 @@ public class RiskServiceImpl implements RiskService {
     @Autowired
     private final NoteServiceProxy noteServiceProxy;
 
+    private static final Logger logger = LoggerFactory.getLogger(RiskServiceImpl.class);
+
     @Autowired
     public RiskServiceImpl(PatientServiceProxy patientServiceProxy, NoteServiceProxy noteServiceProxy) {
         this.patientServiceProxy = patientServiceProxy;
@@ -35,13 +40,13 @@ public class RiskServiceImpl implements RiskService {
 
     @Override
     public String evaluateRiskForPatient(int patientId) {
-        ResponseEntity<PatientBean> patient = patientServiceProxy.getPatientById(patientId);
-        ResponseEntity<List<NoteBean>> notes = noteServiceProxy.getNote(patientId);
+        var patient = patientServiceProxy.getPatientById(patientId);
+        var notes = noteServiceProxy.getNote(patientId);
 
-        String ageRisk = new AgeBasedRiskEvaluationStrategy().evaluateRisk(Objects.requireNonNull(patient.getBody()), notes.getBody());
-        String symptomRisk = new SymptomBasedRiskEvaluationStrategy().evaluateRisk(patient.getBody(), Objects.requireNonNull(notes.getBody()));
+        var ageRisk = new AgeBasedRiskEvaluationStrategy().evaluateRisk(Objects.requireNonNull(patient), notes);
+        var symptomRisk = new SymptomBasedRiskEvaluationStrategy().evaluateRisk(patient, Objects.requireNonNull(notes));
 
-        return riskReport(ageRisk,symptomRisk, patient.getBody().getGenre());
+        return riskReport(ageRisk,symptomRisk, patient.getGenre());
     }
 
     /**
@@ -53,15 +58,15 @@ public class RiskServiceImpl implements RiskService {
      */
     private String riskReport(String ageRisk, String symptomRisk, String gender) {
 
-        if ((ageRisk == "Over 30" && Integer.parseInt(symptomRisk) >= 8)
-        || (gender == "F" && ageRisk == "Under 30" && Integer.parseInt(symptomRisk) >= 7)
-        || (gender == "M" && ageRisk == "Under 30" && Integer.parseInt(symptomRisk) >= 5)) {
+        if ((Objects.equals(ageRisk, "Over 30") && Integer.parseInt(symptomRisk) >= 8)
+        || (Objects.equals(gender, "F") && Objects.equals(ageRisk, "Under 30") && Integer.parseInt(symptomRisk) >= 7)
+        || (Objects.equals(gender, "M") && Objects.equals(ageRisk, "Under 30") && Integer.parseInt(symptomRisk) >= 5)) {
             return "Early onset";
-        } else if((ageRisk == "Over 30" && Integer.parseInt(symptomRisk) >= 6)
-        || (gender == "F" && ageRisk == "Under 30" && Integer.parseInt(symptomRisk) >= 4)
-        || (gender == "M" && ageRisk == "Under 30" && Integer.parseInt(symptomRisk) >= 3)){
+        } else if((Objects.equals(ageRisk, "Over 30") && Integer.parseInt(symptomRisk) >= 6)
+        || (Objects.equals(gender, "F") && Objects.equals(ageRisk, "Under 30") && Integer.parseInt(symptomRisk) >= 4)
+        || (Objects.equals(gender, "M") && Objects.equals(ageRisk, "Under 30") && Integer.parseInt(symptomRisk) >= 3)){
             return "In Danger";
-        } else if (ageRisk == "Over 30" && Integer.parseInt(symptomRisk) >= 2 && Integer.parseInt(symptomRisk) <= 5){
+        } else if (Objects.equals(ageRisk, "Over 30") && Integer.parseInt(symptomRisk) >= 2 && Integer.parseInt(symptomRisk) <= 5){
             return "Borderline";
         }
 
@@ -90,26 +95,45 @@ public class RiskServiceImpl implements RiskService {
     }
 
     private static final List<String> DIABETES_SYMPTOMS = Arrays.asList(
-            "Hémoglobine A1C", "Microalbumine", "Taille", "Poids",
-            "Fumeur, Fumeuse", "Anormal", "Cholestérol", "Vertiges",
-            "Rechute", "Réaction", "Anticorps"
+            "hemoglobine a1c", "microalbumine", "taille", "poids",
+            "fumeur", "fumeuse", "anormal", "cholesterol", "vertiges",
+            "rechute", "reaction", "anticorps"
     );
 
     private static class SymptomBasedRiskEvaluationStrategy implements RiskEvaluationStrategy {
         @Override
         public String evaluateRisk(PatientBean patient, List<NoteBean> notes) {
-
             int symptomCount = 0;
+            List<String> normalizedSymptoms = DIABETES_SYMPTOMS.stream()
+                    .map(this::normalizeText).toList();
+
+            logger.info("Normalized Symptoms List: {}", normalizedSymptoms);
+
             for (NoteBean note : notes) {
-                String content = note.getNote();
-                for (String symptom : DIABETES_SYMPTOMS) {
+                String content = normalizeText(note.getNote());
+                for (String symptom : normalizedSymptoms) {
                     if (content.contains(symptom)) {
+                        logger.info("Symptom Detected: '{}' in Note: '{}'", symptom, content);
                         symptomCount++;
                     }
                 }
             }
 
+            logger.info("Total Symptoms Detected: {}", symptomCount);
             return String.valueOf(symptomCount);
         }
+
+        /**
+         * Delete the accents and converts them in minuscules
+         *
+         * @param text
+         * @return
+         */
+        private String normalizeText(String text) {
+            String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
+            normalized = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
+            return normalized;
+        }
+
     }
 }

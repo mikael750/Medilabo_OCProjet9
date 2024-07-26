@@ -14,15 +14,15 @@ import java.util.List;
 public interface PatientServiceProxy {
 
     @GetMapping(value = "/patient")
-    ResponseEntity<List<PatientBean>> getAllPatients();
+    PatientBean getAllPatients();
 
     @GetMapping( value = "/patient/{id}")
-    ResponseEntity<PatientBean> getPatientById(@PathVariable("id") int id);
+    PatientBean getPatientById(@PathVariable("id") int id);
 
     @PostMapping("/patient/add")
-    ResponseEntity<PatientBean> addPatient(@RequestBody PatientBean patientDTO);
+    PatientBean addPatient(@RequestBody PatientBean patientDTO);
 
     @PostMapping("/patient/{id}/update")
-    ResponseEntity<PatientBean> updatePatient(@RequestBody PatientBean patientDTO, @PathVariable("id") int id);
+    PatientBean updatePatient(@RequestBody PatientBean patientDTO, @PathVariable("id") int id);
 
 }

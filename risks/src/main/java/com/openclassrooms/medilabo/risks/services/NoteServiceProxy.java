@@ -14,16 +14,16 @@ import java.util.List;
 public interface NoteServiceProxy {
 
     @GetMapping("/note")
-    ResponseEntity<List<NoteBean>> getAllNotes();
+    List<NoteBean> getAllNotes();
 
     @GetMapping("/note/{id}")
-    ResponseEntity<List<NoteBean>> getNote(@PathVariable("id") int id);
+    List<NoteBean> getNote(@PathVariable("id") int id);
 
     @PostMapping("/note/add")
-    ResponseEntity<NoteBean> addNote(@RequestBody NoteBean note);
+    NoteBean addNote(@RequestBody NoteBean note);
 
     @PostMapping("/note/{id}/update")
-    ResponseEntity<NoteBean> updateNote(@RequestBody NoteBean note, @PathVariable("id") int id);
+    NoteBean updateNote(@RequestBody NoteBean note, @PathVariable("id") int id);
 
     @PostMapping("/note/{id}/delete")
     void deleteNote(@PathVariable("id") int id);
