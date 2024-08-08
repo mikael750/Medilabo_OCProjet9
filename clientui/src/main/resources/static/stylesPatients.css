@@ -1,0 +1,102 @@
+body {
+    background-color: #f8f9fa; /* Background color */
+    font-family: 'Arial', sans-serif; /* Font family */
+}
+
+.container {
+    max-width: 800px; /* Limit container width */
+}
+
+h1 {
+    font-size: 2.5rem; /* Larger heading size */
+    text-align: center;
+    color: #343a40; /* Dark text color */
+}
+
+.patient-card {
+    background-color: #fff; /* Card background color */
+    border: 1px solid #dee2e6; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for card */
+    margin-bottom: 20px; /* Bottom margin for cards */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Column layout for content */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+.card-header {
+    background-color: #007bff; /* Header background color (blue) */
+    color: #fff; /* Header text color */
+    padding: 1rem; /* Padding inside header */
+    border-top-left-radius: 10px; /* Rounded top-left corner */
+    border-top-right-radius: 10px; /* Rounded top-right corner */
+}
+
+.card-body {
+    padding: 1.5rem; /* Padding inside card body */
+    text-align: center; /* Center align text */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.card-body {
+    padding: 1.5rem; /* Padding inside card body */
+}
+
+.card-footer {
+    background-color: #f8f9fa; /* Footer background color */
+    padding: 1rem; /* Padding inside footer */
+    text-align: center; /* Center align footer content */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Title font size */
+    margin-bottom: 0.5rem; /* Bottom margin for title */
+}
+
+.card-text {
+    color: #6c757d; /* Text color */
+    margin-bottom: 0.75rem; /* Bottom margin for text */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Primary button color (blue) */
+    border-color: #007bff; /* Button border color (blue) */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3; /* Darker blue border on hover */
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Focus state shadow */
+}
+
+
+p {
+    margin-bottom: 0.5rem; /* Bottom margin for paragraphs */
+}
+
+h2 {
+    font-size: 1.8rem; /* Heading size */
+    color: #007bff; /* Blue color for headings */
+    margin-top: 1.5rem; /* Top margin for headings */
+}
+
+span {
+    font-weight: bold; /* Bold text for spans */
+}
+
+hr {
+    margin-top: 1rem; /* Top margin for horizontal rule */
+    margin-bottom: 1rem; /* Bottom margin for horizontal rule */
+    border-width: 1px; /* Border width for horizontal rule */
+    border-color: #007bff; /* Blue color for horizontal rule */
+}
