@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.text.ParseException;
 import java.util.List;
 
-@FeignClient(name = "patient", url = "http://localhost:8081/")
+//@FeignClient(name = "patient", url = "http://localhost:8081/")
+@FeignClient(name = "patient", url = "http://patient-service:8081/")
 public interface MicroservicePatientProxy {
     @GetMapping(value = "/patient")
     ResponseEntity<List<PatientBean>> getAllPatients();

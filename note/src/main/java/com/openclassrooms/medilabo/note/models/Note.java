@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document("notesTest")
+@Document("notes")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Note {

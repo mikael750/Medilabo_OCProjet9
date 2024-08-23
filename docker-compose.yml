@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   note:
     build: ./note
@@ -12,15 +10,17 @@ services:
       mongo:
         condition: service_healthy
     environment:
-      SPRING_DATA_MONGODB_DATABASE: medilabo
-      SPRING_DATA_MONGODB_PORT: 27017
- #   volumes:
- #     - note-data:/data/db
+      - "SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/medilabo"
+      - "SPRING_DATA_MONGODB_DATABASE=mongoDB"
+      - "SPRING_DATA_MONGODB_PORT=27017"
+    volumes:
+      - note-data:/data/db
     restart: on-failure
-
 
   patient-service:
     build: ./patient
+    image: medilabo_ocprojet9-patient-service:latest
+    container_name: patient-service
     ports:
       - "8081:8081"
     networks:
@@ -44,7 +44,6 @@ services:
       - medilabo-network
     restart: on-failure
 
-
   gateway:
     build: ./gateway
     container_name: gateway-container
@@ -54,16 +53,17 @@ services:
       - medilabo-network
     restart: on-failure
 
-
   front:
+    depends_on:
+      - patient-service
     build: ./clientui
+    image: medilabo_ocprojet9-front:latest
     container_name: front-container
     ports:
       - "8082:8082"
     networks:
       - medilabo-network
     restart: on-failure
-
 
   mongo:
     image: mongo:latest
@@ -72,8 +72,8 @@ services:
       - "27017:27017"
     networks:
       - medilabo-network
-#    volumes:
-#      - mongo-data:/data/db
+    volumes:
+      - mongo-data:/data/db
     healthcheck:
       test: "mongosh --eval 'db.runCommand(\"ping\").ok' localhost:27017 --quiet || exit 1"
       interval: 10s
@@ -94,12 +94,19 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
 
 networks:
   medilabo-network:
+    driver: bridge
 
-#volumes:
-#  mongo-data:
-#  mysql-data:
-#  note-data:
-#  patient-data:
+volumes:
+  mongo-data:
+  mysql-data:
+  note-data:
+  patient-data:
