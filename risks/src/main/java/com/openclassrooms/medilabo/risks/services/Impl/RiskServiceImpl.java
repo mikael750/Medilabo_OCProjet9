@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
@@ -50,11 +49,11 @@ public class RiskServiceImpl implements RiskService {
     }
 
     /**
-     * Figures out the Risk of diabetes of the patient
+     * Determines the diabetes risk level based on age and symptom risk
      *
      * @param ageRisk ageRisk
      * @param symptomRisk symptomRisk
-     * @return risk report
+     * @return A string representing the risk level, which can be "Early onset", "In Danger", "Borderline", or "None"
      */
     private String riskReport(String ageRisk, String symptomRisk, String gender) {
 
@@ -74,12 +73,22 @@ public class RiskServiceImpl implements RiskService {
     }
 
     /**
-     * Strategy Pattern
+     * Strategy interface for evaluating risk
      */
     private interface RiskEvaluationStrategy {
+        /**
+         * Evaluates the risk based on the provided patient data and notes.
+         *
+         * @param patient The patient whose risk is to be evaluated
+         * @param notes The notes associated with the patient
+         * @return A string representing the risk assessment
+         */
         String evaluateRisk(PatientBean patient, List<NoteBean> notes);
     }
 
+    /**
+     * Risk evaluation strategy based on the patient's age
+     */
     private static class AgeBasedRiskEvaluationStrategy implements RiskEvaluationStrategy {
         @Override
         public String evaluateRisk(PatientBean patient, List<NoteBean> notes) {
@@ -100,6 +109,9 @@ public class RiskServiceImpl implements RiskService {
             "rechute", "reaction", "anticorps"
     );
 
+    /**
+     * Risk evaluation strategy based on the patient's symptoms.
+     */
     private static class SymptomBasedRiskEvaluationStrategy implements RiskEvaluationStrategy {
         @Override
         public String evaluateRisk(PatientBean patient, List<NoteBean> notes) {
@@ -124,10 +136,10 @@ public class RiskServiceImpl implements RiskService {
         }
 
         /**
-         * Delete the accents and converts them in minuscules
+         * Normalizes text by removing accents and converting to lowercase
          *
-         * @param text
-         * @return
+         * @param text The text to be normalized
+         * @return The normalized text
          */
         private String normalizeText(String text) {
             String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);

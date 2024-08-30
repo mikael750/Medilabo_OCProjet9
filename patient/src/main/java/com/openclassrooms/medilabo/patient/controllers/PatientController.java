@@ -22,6 +22,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    /**
+     * Retrieves a patient by their ID.
+     *
+     * @param id ID of the patient
+     * @return A `ResponseEntity` containing the `PatientDTO` object if found or a 404 (Not Found) status.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable int id) {
         PatientDTO patientDTO = patientService.getPatientById(id);
@@ -31,6 +37,11 @@ public class PatientController {
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
 
+    /**
+     * Retrieves all patients
+     *
+     * @return A `ResponseEntity` containing a list of `PatientDTO` objects or an empty list if no patients are found
+     */
     @GetMapping()
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
         List<PatientDTO> patients = patientService.getAllPatients();
@@ -44,6 +55,13 @@ public class PatientController {
 
     }
 
+    /**
+     * Adds a new patient
+     *
+     * @param patientDTO The `PatientDTO` object containing the details of the patient to be added
+     * @return A `ResponseEntity` containing the created `Patient` object and an HTTP status of 201 (Created)
+     * @throws ParseException If there is an error parsing the patient data.
+     */
     @PostMapping("/add")
     public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO) throws ParseException {
 
@@ -51,6 +69,14 @@ public class PatientController {
 
     }
 
+    /**
+     * Updates an existing patient.
+     *
+     * @param patientDTO The `PatientDTO` object containing the updated details of the patient
+     * @param id ID of the patient
+     * @return A `ResponseEntity` containing the updated `Patient` object and an HTTP status of 200 (OK)
+     * @throws ParseException If there is an error parsing the patient data
+     */
     @PostMapping("/{id}/update")
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO, @PathVariable("id") int id) throws ParseException {
 
@@ -61,6 +87,11 @@ public class PatientController {
 
     }
 
+    /**
+     * Deletes a patient by their ID
+     *
+     * @param id ID of the patient
+     */
     @PostMapping("/{id}/delete")
     public void deletePatient(@PathVariable("id") int id) {
 

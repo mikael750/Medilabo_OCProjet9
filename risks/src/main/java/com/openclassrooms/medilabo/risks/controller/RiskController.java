@@ -15,8 +15,10 @@ public class RiskController {
     private RiskService service;
 
     /**
-     * @param id id of patient
-     * @return
+     *  Retrieves the risk report for a specific patient
+     *
+     * @param id ID of the patient
+     * @return A string containing the risk report for the specified patient
      */
     @GetMapping("{id}")
     public String getReportRisk(@PathVariable("id") int id) {

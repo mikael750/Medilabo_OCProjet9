@@ -28,8 +28,10 @@ public class ClientController {
     }
 
     /**
+     * Retrieves the list of all patients and adds it to the model for display.
+     *
      * @param model
-     * @return
+     * @return list of patients
      */
     @GetMapping("/patient")
     public String getAllPatients(Model model){
@@ -43,6 +45,14 @@ public class ClientController {
 
     }
 
+    /**
+     *  Retrieves a patient's details by their ID, along with their notes and risk report,
+     *  and adds them to the model for display.
+     *
+     * @param model model
+     * @param id The ID of the patient
+     * @return patient's details
+     */
     @GetMapping("/patient/{id}")
     public String getPatientById(Model model, @PathVariable int id){
 
@@ -59,6 +69,12 @@ public class ClientController {
 
     }
 
+    /**
+     * Displays the form for adding a new patient.
+     *
+     * @param model model
+     * @return view for adding a new patient
+     */
     @GetMapping("/patient/add")
     public String addPatientForm(Model model) {
 
@@ -67,6 +83,13 @@ public class ClientController {
         return "addPatient";
     }
 
+    /**
+     *  Handles the submission of the form for adding a new patient
+     *
+     * @param patientDTO PatientBean
+     * @param model model
+     * @return redirection to the patient list
+     */
     @PostMapping("/patient/add")
     public String addPatient(@ModelAttribute PatientBean patientDTO, Model model) {
 
@@ -75,6 +98,13 @@ public class ClientController {
         return "redirect:/patient";
     }
 
+    /**
+     * Displays the form for updating an existing patient's details.
+     *
+     * @param model model
+     * @param id The ID of the patient
+     * @return view that displays the form for updating the patient's details
+     */
     @GetMapping("/patient/{id}/update")
     public String updateForm(Model model, @PathVariable int id) {
         ResponseEntity<PatientBean> responseEntity = patientProxy.getPatientById(id);
@@ -85,6 +115,13 @@ public class ClientController {
         return "updatePatient";
     }
 
+    /**
+     * Handles the submission of the form to update an existing patient's details
+     *
+     * @param patientDTO PatientBean
+     * @param id The ID of the patient
+     * @return redirection to the patient list
+     */
     @PostMapping("/patient/{id}/update")
     public String updatePatient(@ModelAttribute PatientBean patientDTO, @PathVariable("id") int id){
 

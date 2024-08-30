@@ -20,6 +20,9 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
 
 
+    /**
+     *{@inheritDoc}
+     */
     public List<PatientDTO> getAllPatients(){
 
         var patients = patientRepository.findAll();
@@ -35,6 +38,9 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
+    /**
+     *{@inheritDoc}
+     */
     public PatientDTO getPatientById(int id) {
 
         if (id != 0) {
@@ -52,6 +58,9 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
+    /**
+     *{@inheritDoc}
+     */
     public Patient savePatient(PatientDTO patientDTO) {
 
         Patient patient = new Patient();
@@ -60,13 +69,18 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
+    /**
+     *{@inheritDoc}
+     */
     public Patient updatePatient(Patient patient) {
 
         return patientRepository.save(patient);
 
     }
 
-
+    /**
+     *{@inheritDoc}
+     */
     public void deletePatient(int id){
 
         PatientDTO patientToDelete = this.getPatientById(id);

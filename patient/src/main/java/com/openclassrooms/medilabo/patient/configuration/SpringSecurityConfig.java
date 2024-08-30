@@ -11,6 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
+    /**
+     * Configures the security filter chain for HTTP requests.
+     *
+     * @param http The `HttpSecurity` object used to configure HTTP security settings
+     * @return The configured `SecurityFilterChain` instance
+     * @throws Exception If an error occurs while configuring HTTP security
+     */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 

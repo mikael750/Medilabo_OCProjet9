@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.core.query.Query;
-
-import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class NoteApplication implements CommandLineRunner {
@@ -26,46 +22,9 @@ public class NoteApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		logger.info("Start !");
-/*
-		Optional<Note> note = noteRepository.findById("666c6a803c4bb43992e64c67");
-		if (note.isPresent()) {
-			logger.info(note.get().getNote());
-		} else {
-			logger.info("Post not found");
-		}
 
-		List<Note> allPosts = noteRepository.findAll();
-		allPosts.forEach((notes) -> logger.info(notes.getNote()));
-
-		List<Note> result = noteRepository.findByPatId("1");
-		result.forEach((notes) -> logger.info(notes.getNote()));
-
-
-		List<Note> result = noteRepository.findPatientAndNote("1");
-		result.forEach((notes) -> logger.info(String.valueOf(notes)));*/
-/*
-		Note newP = new Note();
-		newP.setPatId("99");
-		newP.setPatient("TestNew");
-		newP.setNote("This patient has some symptoms");
-
-		Note newP2 = new Note();
-		newP2.setPatId("98");
-		newP2.setPatient("TestNew2");
-		newP2.setNote("This patient has other symptoms");
-
-		//noteRepository.insert(newP);
-		noteRepository.insert(List.of(newP, newP2));
-
-		String newNote = newP2.getNote() + " and more";
-		newP2.setNote(newNote);
-
-		noteRepository.save(newP2);
-
-		noteRepository.deleteById(newP.getId());
-*/
 		if (noteRepository.count() <= 0){
 			noteRepository.deleteAll();
 			noteRepository.save(new Note("1", "TestNone", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé"));
