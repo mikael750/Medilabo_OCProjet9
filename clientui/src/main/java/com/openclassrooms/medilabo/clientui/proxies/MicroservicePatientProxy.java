@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "patient", url = "http://patient-service:8081/")
+@FeignClient(name = "patient", url = "http://gateway:8080/")
 public interface MicroservicePatientProxy {
-    @GetMapping(value = "/patient")
+    @GetMapping(value = "/patient-service/patient")
     ResponseEntity<List<PatientBean>> getAllPatients();
 
-    @GetMapping( value = "/patient/{id}")
+    @GetMapping( value = "/patient-service/patient/{id}")
     ResponseEntity<PatientBean> getPatientById(@PathVariable("id") int id);
 
-    @PostMapping("/patient/add")
+    @PostMapping("/patient-service/patient/add")
     ResponseEntity<PatientBean> addPatient(@RequestBody PatientBean patientDTO);
 
-    @PostMapping("/patient/{id}/update")
+    @PostMapping("/patient-service/patient/{id}/update")
     ResponseEntity<PatientBean> updatePatient(@RequestBody PatientBean patientDTO, @PathVariable("id") int id);
 
 }

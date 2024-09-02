@@ -14,7 +14,7 @@ services:
       - "SPRING_DATA_MONGODB_DATABASE=mongoDB"
       - "SPRING_DATA_MONGODB_PORT=27017"
     volumes:
-      - note-data:/data/db
+      - note-data:/app/data
     restart: on-failure
 
   patient-service:
@@ -32,7 +32,7 @@ services:
       - "SPRING_DATASOURCE_USERNAME=root"
       - "SPRING_DATASOURCE_PASSWORD=password"
     volumes:
-      - patient-data:/var/lib/mysql
+      - patient-data:/app/data
     restart: on-failure
 
   report-risk:
@@ -55,6 +55,7 @@ services:
 
   front:
     depends_on:
+      - gateway
       - patient-service
     build: ./clientui
     image: medilabo_ocprojet9-front:latest
