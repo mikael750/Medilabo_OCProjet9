@@ -70,7 +70,7 @@ public class NoteController {
      * @param id ID of the patient
      * @return A `ResponseEntity` containing the updated `Note` object and an HTTP status of 200 (OK)
      */
-    @PostMapping("/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<Note> updateNote(@RequestBody Note note, @PathVariable("id") int id) {
 
         note.setPatId(String.valueOf(id));
@@ -83,7 +83,7 @@ public class NoteController {
      *
      * @param id ID of the Patient
      */
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public void deleteNote(@PathVariable("id") int id) {
 
         noteService.deleteNote(id);

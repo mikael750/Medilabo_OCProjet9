@@ -3,10 +3,7 @@ package com.openclassrooms.medilabo.clientui.proxies;
 import com.openclassrooms.medilabo.clientui.beans.PatientBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public interface MicroservicePatientProxy {
     @PostMapping("/patient/add")
     ResponseEntity<PatientBean> addPatient(@RequestBody PatientBean patientDTO);
 
-    @PostMapping("/patient/{id}/update")
+    @RequestMapping(value = "/patient/{id}/update", method = RequestMethod.PUT)
     ResponseEntity<PatientBean> updatePatient(@RequestBody PatientBean patientDTO, @PathVariable("id") int id);
 
 }

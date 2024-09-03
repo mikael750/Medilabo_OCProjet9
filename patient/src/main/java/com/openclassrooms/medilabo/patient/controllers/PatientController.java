@@ -77,7 +77,7 @@ public class PatientController {
      * @return A `ResponseEntity` containing the updated `Patient` object and an HTTP status of 200 (OK)
      * @throws ParseException If there is an error parsing the patient data
      */
-    @PostMapping("/{id}/update")
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.PUT)
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO, @PathVariable("id") int id) throws ParseException {
 
         Patient patient = new Patient();
@@ -92,7 +92,7 @@ public class PatientController {
      *
      * @param id ID of the patient
      */
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public void deletePatient(@PathVariable("id") int id) {
 
         patientService.deletePatient(id);

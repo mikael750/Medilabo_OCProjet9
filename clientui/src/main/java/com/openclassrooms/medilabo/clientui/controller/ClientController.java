@@ -122,7 +122,7 @@ public class ClientController {
      * @param id The ID of the patient
      * @return redirection to the patient list
      */
-    @PostMapping("/patient/{id}/update")
+    @RequestMapping(value = "/patient/{id}/update", method = RequestMethod.PUT)
     public String updatePatient(@ModelAttribute PatientBean patientDTO, @PathVariable("id") int id){
 
         patientProxy.updatePatient(patientDTO, id);

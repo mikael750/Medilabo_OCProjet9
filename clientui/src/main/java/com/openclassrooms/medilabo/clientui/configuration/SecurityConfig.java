@@ -2,6 +2,7 @@ package com.openclassrooms.medilabo.clientui.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +33,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((req) -> req
                         //.requestMatchers("/patient/**","/note/**","/riskReport/**").permitAll()
-                        .requestMatchers("/patient/**").authenticated()
+                        //.requestMatchers("/patient/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"/patient/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/patient/**").authenticated()
                         .requestMatchers("/riskReport/**").authenticated()
                         .requestMatchers("/note/**").authenticated()
                         .requestMatchers("/login/*").anonymous()
