@@ -17,10 +17,10 @@ services:
       - note-data:/app/data
     restart: on-failure
 
-  patient-service:
+  patient:
     build: ./patient
-    image: medilabo_ocprojet9-patient-service:latest
-    container_name: patient-service
+    image: medilabo_ocprojet9-patient:latest
+    container_name: patient
     ports:
       - "8081:8081"
     networks:
@@ -56,7 +56,7 @@ services:
   front:
     depends_on:
       - gateway
-      - patient-service
+      - patient
     build: ./clientui
     image: medilabo_ocprojet9-front:latest
     container_name: front-container
