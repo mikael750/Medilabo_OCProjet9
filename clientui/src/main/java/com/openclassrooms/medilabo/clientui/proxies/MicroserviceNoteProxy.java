@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "note", url = "http://gateway:8080/")
+@FeignClient(name = "note", url = "http://note:8083/")
 public interface MicroserviceNoteProxy {
 
-    @GetMapping("/note/note")
+    @GetMapping("/note")
     ResponseEntity<List<NoteBean>> getAllNotes();
 
-    @GetMapping("/note/note/{id}")
+    @GetMapping("/note/{id}")
     ResponseEntity<List<NoteBean>> getNote(@PathVariable("id") int id);
 
-    @PostMapping("/note/note/add")
+    @PostMapping("/note/add")
     ResponseEntity<NoteBean> addNote(@RequestBody NoteBean note);
 
-    @PostMapping("/note/note/{id}/update")
+    @PostMapping("/note/{id}/update")
     ResponseEntity<NoteBean> updateNote(@RequestBody NoteBean note, @PathVariable("id") int id);
 
-    @PostMapping("/note/note/{id}/delete")
+    @PostMapping("/note/{id}/delete")
     void deleteNote(@PathVariable("id") int id);
 
 }

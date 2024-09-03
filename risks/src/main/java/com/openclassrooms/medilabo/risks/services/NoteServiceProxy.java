@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "note", url = "http://gateway:8080/")
+@FeignClient(name = "note", url = "http://note:8083/")
 public interface NoteServiceProxy {
 
-    @GetMapping("/note/note/{id}")
+    @GetMapping("/note/{id}")
     List<NoteBean> getNote(@PathVariable("id") int id);
 
 }
