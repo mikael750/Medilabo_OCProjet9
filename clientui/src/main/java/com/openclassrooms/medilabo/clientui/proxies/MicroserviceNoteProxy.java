@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "note", url = "http://note:8083/")
+@FeignClient(name = "note", url = "${api.gateway.url}/note")
 public interface MicroserviceNoteProxy {
 
     @GetMapping("/note")
